@@ -1,5 +1,5 @@
 #+title: Hélice
 
-Hélice es un proyecto con el objetivo de describir aspectos de la lengua castellana en lenguaje de programación, y así facilitar herramientas lingüísticas para este idioma.
+Hélice es un proyecto con el objetivo de describir aspectos del castellano y del catalán en lenguaje de programación, y así facilitar herramientas lingüísticas para este idioma.
 
 El nombre Hélice es un acrónimo para «HErramientas LIngüísticas para el Catalán y Español».
