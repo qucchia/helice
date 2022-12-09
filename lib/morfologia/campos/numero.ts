@@ -1,8 +1,8 @@
-import Campo from "../../general/campo";
-import Valor from "../../general/valor";
-import Nomenclatura from "../../general/nomenclatura";
+import CampoFinito from "../../base/campo";
+import Valor from "../../base/valor";
+import Nomenclatura from "../../base/nomenclatura";
 
-const numero = new Campo({
+const numero = new CampoFinito({
   singular: new Valor({ adjetivo: new Nomenclatura("singular"), campos: {} }),
   plural: new Valor({ adjetivo: new Nomenclatura("plural"), campos: {} }),
 });

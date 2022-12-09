@@ -2,10 +2,10 @@ import Head from "next/head";
 import { useState } from "react";
 import styles from "../styles/Home.module.css";
 
-import cogePalabra from "../lib/general/wiktionary";
-import ESPANOL from "../lib/espanol/idioma";
-import Palabra from "../lib/general/morfologia/palabra";
-import CAMPOS from "../lib/general/campos";
+import cogePalabra from "../lib/wiktionary";
+import ESPANOL from "../lib/idiomas/espanol";
+import Palabra from "../lib/morfologia/palabra";
+// import CAMPOS from "../lib/general/campos";
 
 export default function Home() {
   const [palabra, setPalabra] = useState("hola");
@@ -43,10 +43,7 @@ export default function Home() {
         >
           Haz magia
         </button>
-        <p>
-          {palabras &&
-            palabras.map((palabra) => palabra.clase.nombre).join(", ")}
-        </p>
+        <p></p>
       </main>
 
       <footer className={styles.footer}></footer>

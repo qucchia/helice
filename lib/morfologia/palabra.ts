@@ -1,7 +1,9 @@
-import Segmento from "../segmento";
-import Serie from "../serie";
+import Segmento from "../base/segmento";
+import Serie from "../base/serie";
 import Morfema from "./morfema";
-import Clase from "./clase";
+import clase from "./campos/clase";
+
+type Clase = typeof clase;
 
 export default class Palabra<T extends Clase = Clase> extends Segmento {
   morfemas?: Serie<Morfema<boolean>>;

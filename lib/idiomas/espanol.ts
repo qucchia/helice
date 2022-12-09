@@ -1,5 +1,5 @@
-import Idioma from "../general/idioma";
-import clase from "./campos/clase/index";
+import Idioma from "../base/idioma";
+import clase from "../morfologia/campos/clase/index";
 
 const ESPANOL: Idioma = {
   codigo: "es",

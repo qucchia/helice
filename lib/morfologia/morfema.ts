@@ -1,6 +1,6 @@
 import Grafia from "./grafia";
-import Segmento from "../segmento";
-import Serie from "../serie";
+import Segmento from "../base/segmento";
+import Serie from "../base/serie";
 import { NombreDeLetra } from "./letra";
 
 export default class Morfema<T extends boolean> extends Segmento {

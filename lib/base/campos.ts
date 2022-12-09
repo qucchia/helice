@@ -1,18 +1,18 @@
-import Campo from "./campo";
+import CampoFinito from "./campo";
 import Valor from "./valor";
 import Nomenclatura from "./nomenclatura";
 
-const genero = new Campo({
+const genero = new CampoFinito({
   masculino: new Valor({ adjetivo: new Nomenclatura("masculino"), campos: {} }),
   femenino: new Valor({ adjetivo: new Nomenclatura("femenino"), campos: {} }),
 });
 
-const numero = new Campo({
+const numero = new CampoFinito({
   singular: new Valor({ adjetivo: new Nomenclatura("singular"), campos: {} }),
   plural: new Valor({ adjetivo: new Nomenclatura("plural"), campos: {} }),
 });
 
-const clase = new Campo({
+const clase = new CampoFinito({
   nombre: new Valor({
     nombre: new Nomenclatura("nombre", "sustantivo", "substantivo"),
     adjetivo: new Nomenclatura("nominal"),

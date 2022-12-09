@@ -1,4 +1,4 @@
-import Segmento from "../segmento";
+import Segmento from "../base/segmento";
 import {
   LetraVocal,
   NombreDeLetra,

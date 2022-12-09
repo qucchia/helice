@@ -1,15 +1,17 @@
-import Campo from "./campo";
+import CampoFinito from "./campo";
 import Nomenclatura from "./nomenclatura";
 import { Opcional } from "./util";
 
 export default class Valor<
   T extends string = string,
   U extends string | undefined = string | undefined,
-  V extends { [key: string]: Campo<{ [key: string]: Valor }> | undefined } = {
-    [key: string]: Campo<{ [key: string]: Valor }> | undefined;
+  V extends {
+    [key: string]: CampoFinito<{ [key: string]: Valor }> | undefined;
+  } = {
+    [key: string]: CampoFinito<{ [key: string]: Valor }> | undefined;
   }
 > {
-  adjetivo: Nomenclatura<T>;
+  adjetivo?: Nomenclatura<T>;
   nombre?: U extends string ? Nomenclatura<U> : undefined;
   implicito: boolean;
   campos: V;
@@ -20,7 +22,7 @@ export default class Valor<
     implicito = false,
     campos,
   }: {
-    adjetivo: Nomenclatura<T>;
+    adjetivo?: Nomenclatura<T>;
     nombre?: U extends string ? Nomenclatura<U> : undefined;
     implicito?: boolean;
     campos: V;

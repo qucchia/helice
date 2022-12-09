@@ -1,7 +1,7 @@
-import Campo from "./campo";
+import clase from "../morfologia/campos/clase";
 
 export default interface Idioma {
   codigo: string;
   nombre: string;
-  clase: Campo<any>;
+  clase: typeof clase;
 }

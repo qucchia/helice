@@ -1,7 +1,9 @@
 import wiki from "wikijs";
 import Palabra from "./morfologia/palabra";
-import Idioma from "./idioma";
-import Clase from "./morfologia/clase";
+import Idioma from "./base/idioma";
+import CLASE from "./morfologia/campos/clase";
+
+type Clase = typeof CLASE;
 
 type Content = Array<{
   title: string;
@@ -29,16 +31,17 @@ export default function cogePalabra(
             );
             if (!apartado) return reject();
             console.log(apartado.items);
-            resolve(
-              apartado.items
-                .map((item) =>
-                  Object.values(idioma.clases).find(
-                    (clase) => clase.nombre === item.title.toLowerCase()
-                  )
-                )
-                .filter((clase) => clase)
-                .map((clase) => new Palabra(palabra, clase as Clase))
-            );
+            // resolve(
+            //   apartado.items
+            //     .map((item) =>
+            //       Object.values(idioma.clase.posibilidades).find(
+            //         (clase) =>
+            //           clase.nombre?.principal === item.title.toLowerCase()
+            //       )
+            //     )
+            //     .filter((clase) => clase)
+            //     .map((clase) => new Palabra(palabra, CLASE.con(clase)))
+            // );
           }
         );
       });

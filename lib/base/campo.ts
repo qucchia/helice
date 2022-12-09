@@ -19,7 +19,7 @@ type Campos<
  * Un campo es un elemento abstracto que se usa para guardar información de una
  * característica particular.
  */
-export default class Campo<
+export class CampoFinito<
   T extends { [key: string]: Valor<string, string | undefined> }
 > {
   /** Todas las posibles valores de este tipo de campo. */
@@ -37,16 +37,16 @@ export default class Campo<
 
   constructor(posibilidades: T, informacion?: Campos<T>) {
     this.posibilidades = posibilidades;
-    if (!informacion) informacion = Campo.campos(posibilidades);
+    if (!informacion) informacion = CampoFinito.campos(posibilidades);
     this.informacion = informacion;
   }
 
   /**
-   * @returns {Campo<T>} Un nuevo campo con las mismas posibilidades que esta
+   * @returns {CampoFinito<T>} Un nuevo campo con las mismas posibilidades que esta
    * pero con la información dada.
    */
-  con(informacion?: Campos<T>): Campo<T> {
-    return new Campo(this.posibilidades, informacion);
+  con(informacion?: Campos<T>): CampoFinito<T> {
+    return new CampoFinito(this.posibilidades, informacion);
   }
 
   puedeSer(valor: keyof T) {
@@ -124,7 +124,9 @@ export default class Campo<
    * Invierte las posibilidades.
    */
   invierte(): this {
-    this.informacion = Campo.campos(this.noEs);
+    this.informacion = CampoFinito.campos(this.noEs);
     return this;
   }
 }
+
+export default CampoFinito;

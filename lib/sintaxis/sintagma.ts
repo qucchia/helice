@@ -1,4 +1,4 @@
-import Segmento from "../segmento";
+import Segmento from "../base/segmento";
 
 /**
  * Un sintagma es un segmento sintáctico que desempeña funciones sintácticas y
