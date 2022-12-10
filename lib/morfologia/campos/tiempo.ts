@@ -4,7 +4,7 @@ import Nomenclatura from "../../base/nomenclatura";
 
 const tiempo = new CampoFinito({
   presente: new Valor({
-    adjetivo: new Nomenclatura("presente"),
+    caracteristicas: { adjetivo: new Nomenclatura("presente") },
     campos: {},
   }),
 });

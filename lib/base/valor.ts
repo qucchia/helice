@@ -1,44 +1,41 @@
 import CampoFinito from "./campo";
-import Nomenclatura from "./nomenclatura";
 import { Opcional } from "./util";
 
 export default class Valor<
-  T extends string = string,
-  U extends string | undefined = string | undefined,
-  V extends {
-    [key: string]: CampoFinito<{ [key: string]: Valor }> | undefined;
+  Caracteristicas extends { [key: string]: any } = { [key: string]: any },
+  Campos extends {
+    [key: string]:
+      | CampoFinito<{ [key: string]: any }, { [key: string]: Valor }>
+      | undefined;
   } = {
-    [key: string]: CampoFinito<{ [key: string]: Valor }> | undefined;
+    [key: string]:
+      | CampoFinito<{ [key: string]: any }, { [key: string]: Valor }>
+      | undefined;
   }
 > {
-  adjetivo?: Nomenclatura<T>;
-  nombre?: U extends string ? Nomenclatura<U> : undefined;
+  caracteristicas: Caracteristicas;
   implicito: boolean;
-  campos: V;
+  campos: Campos;
 
   constructor({
-    adjetivo,
-    nombre,
-    implicito = false,
     campos,
+    caracteristicas,
+    implicito = false,
   }: {
-    adjetivo?: Nomenclatura<T>;
-    nombre?: U extends string ? Nomenclatura<U> : undefined;
+    campos: Campos;
+    caracteristicas: Caracteristicas;
     implicito?: boolean;
-    campos: V;
   }) {
-    this.nombre = nombre;
-    this.adjetivo = adjetivo;
+    this.caracteristicas = caracteristicas;
     this.implicito = implicito;
     this.campos = campos;
   }
 
-  con(campos: Opcional<V>) {
+  con(campos: Opcional<Campos>) {
     return new Valor({
-      adjetivo: this.adjetivo,
-      nombre: this.nombre,
-      implicito: this.implicito,
       campos,
+      caracteristicas: this.caracteristicas,
+      implicito: this.implicito,
     });
   }
 }

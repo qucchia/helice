@@ -5,15 +5,15 @@ import tiempo from "./tiempo";
 
 const modo = new CampoFinito({
   indicativo: new Valor({
-    adjetivo: new Nomenclatura("indicativo"),
+    caracteristicas: { adjetivo: new Nomenclatura("indicativo") },
     campos: { tiempo },
   }),
   subjuntivo: new Valor({
-    adjetivo: new Nomenclatura("subjuntivo"),
+    caracteristicas: { adjetivo: new Nomenclatura("subjuntivo") },
     campos: { tiempo },
   }),
   imperativo: new Valor({
-    adjetivo: new Nomenclatura("imperativo"),
+    caracteristicas: { adjetivo: new Nomenclatura("imperativo") },
     campos: {},
   }),
 });

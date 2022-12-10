@@ -8,10 +8,16 @@ import persona from "./persona";
 // TODO: modo, tiempo, aspecto
 
 const accidente = new CampoFinito({
-  genero: new Valor({ nombre: new Nomenclatura("género"), campos: { genero } }),
-  numero: new Valor({ nombre: new Nomenclatura("número"), campos: { numero } }),
+  genero: new Valor({
+    caracteristicas: { nombre: new Nomenclatura("género") },
+    campos: { genero },
+  }),
+  numero: new Valor({
+    caracteristicas: { nombre: new Nomenclatura("número") },
+    campos: { numero },
+  }),
   persona: new Valor({
-    nombre: new Nomenclatura("persona"),
+    caracteristicas: { nombre: new Nomenclatura("persona") },
     campos: { persona },
   }),
 });

@@ -5,12 +5,14 @@ import numero from "../numero";
 import lexema from "../lexema";
 
 const adjetivo = new Valor({
-  nombre: new Nomenclatura("adjetivo"),
-  adjetivo: new Nomenclatura("adjetival"),
+  caracteristicas: {
+    nombre: new Nomenclatura("adjetivo"),
+    adjetivo: new Nomenclatura("adjetival"),
+  },
   campos: {
     genero,
     numero,
-    lexema: lexema.con({ si: lexema.posibilidades.si }),
+    lexema: lexema.con({ si: lexema.valores.si }),
   },
 });
 

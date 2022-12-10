@@ -2,54 +2,52 @@ import Valor from "./valor";
 import { Opcional } from "./util";
 
 type CampoDe<T extends Valor | undefined> = T extends Valor<
-  string,
-  string | undefined,
+  { [key: string]: any },
   infer R
 >
   ? R
   : undefined;
 
-type Campos<
-  T extends { [key: string]: Valor<string, string | undefined> | undefined }
-> = {
+type Campos<T extends { [key: string]: Valor | undefined }> = {
   [key in keyof T]?: CampoDe<T[key]>;
 };
 
 /**
- * Un campo es un elemento abstracto que se usa para guardar información de una
- * característica particular.
+ * Un campo finito es un elemento abstracto que se usa para guardar información
+ * de una característica particular.
  */
 export class CampoFinito<
-  T extends { [key: string]: Valor<string, string | undefined> }
+  Caracteristicas extends { [key: string]: any },
+  Valores extends { [key: string]: Valor<Caracteristicas> }
 > {
   /** Todas las posibles valores de este tipo de campo. */
-  posibilidades: T;
+  valores: Valores;
   /** Los posibles valores que se sabe que puede tener este campo. */
-  informacion: Campos<T>;
+  informacion: Campos<Valores>;
 
-  static campos<
-    T extends { [key: string]: Valor<string, string | undefined> | undefined }
-  >(posibilidades: T) {
+  static campos<T extends { [key: string]: Valor | undefined }>(
+    posibilidades: T
+  ) {
     return Object.fromEntries(
       Object.entries(posibilidades).map(([key, value]) => [key, value?.campos])
     ) as Campos<T>;
   }
 
-  constructor(posibilidades: T, informacion?: Campos<T>) {
-    this.posibilidades = posibilidades;
-    if (!informacion) informacion = CampoFinito.campos(posibilidades);
+  constructor(valores: Valores, informacion?: Campos<Valores>) {
+    this.valores = valores;
+    if (!informacion) informacion = CampoFinito.campos(valores);
     this.informacion = informacion;
   }
 
   /**
-   * @returns {CampoFinito<T>} Un nuevo campo con las mismas posibilidades que esta
+   * @returns {CampoFinito<Valores>} Un nuevo campo con las mismas posibilidades que esta
    * pero con la información dada.
    */
-  con(informacion?: Campos<T>): CampoFinito<T> {
-    return new CampoFinito(this.posibilidades, informacion);
+  con(informacion?: Campos<Valores>): CampoFinito<Caracteristicas, Valores> {
+    return new CampoFinito(this.valores, informacion);
   }
 
-  puedeSer(valor: keyof T) {
+  puedeSer(valor: keyof Valores) {
     return Object.keys(this.informacion).includes(valor as string);
   }
 
@@ -57,15 +55,15 @@ export class CampoFinito<
    * @returns Todas las posibilidades que han sido eliminados, y que por
    * tanto no puede ser este campo.
    */
-  get noEs(): Opcional<T> {
-    const objeto: Opcional<T> = {};
-    (Object.entries(this.posibilidades) as [keyof T, T[keyof T]][]).forEach(
-      ([nombre, valor]) => {
-        if (!Object.keys(this.informacion).includes(nombre as string)) {
-          objeto[nombre] = valor;
-        }
+  get noEs(): Opcional<Valores> {
+    const objeto: Opcional<Valores> = {};
+    (
+      Object.entries(this.valores) as [keyof Valores, Valores[keyof Valores]][]
+    ).forEach(([nombre, valor]) => {
+      if (!Object.keys(this.informacion).includes(nombre as string)) {
+        objeto[nombre] = valor;
       }
-    );
+    });
     return objeto;
   }
 
@@ -88,18 +86,18 @@ export class CampoFinito<
 
   /**
    * Elimina posibilidades.
-   * @param {...T} posibilidades Las posibilidades a eliminar.
+   * @param {...Valores} posibilidades Las posibilidades a eliminar.
    */
-  elimina(...posibilidades: (keyof T)[]): this {
+  elimina(...posibilidades: (keyof Valores)[]): this {
     posibilidades.forEach((valor) => delete this.informacion[valor]);
     return this;
   }
 
   /**
    * Restringe las posibilidades a las dadas.
-   * @param {...T} posibilidades Las posibilidades a las cuales restringir.
+   * @param {...Valores} posibilidades Las posibilidades a las cuales restringir.
    */
-  restringe(...posibilidades: (keyof T)[]): this {
+  restringe(...posibilidades: (keyof Valores)[]): this {
     Object.keys(this.informacion).forEach((valor) => {
       if (!posibilidades.includes(valor)) delete this.informacion[valor];
     });
@@ -108,13 +106,13 @@ export class CampoFinito<
 
   /**
    * Añade posibilidades.
-   * @param {...T} posibilidades Las posibilidades a añadir.
+   * @param {...Valores} posibilidades Las posibilidades a añadir.
    */
-  anade(...posibilidades: (keyof T)[]): this {
+  anade(...posibilidades: (keyof Valores)[]): this {
     posibilidades.forEach(
       (valor) =>
-        (this.informacion[valor] = this.posibilidades[valor].campos as CampoDe<
-          T[keyof T]
+        (this.informacion[valor] = this.valores[valor].campos as CampoDe<
+          Valores[keyof Valores]
         >)
     );
     return this;
@@ -130,3 +128,13 @@ export class CampoFinito<
 }
 
 export default CampoFinito;
+
+export class CampoInfinito<T extends any> {
+  informacion: T[];
+  noEs: T[];
+
+  constructor(informacion: T[], noEs: T[] = []) {
+    this.informacion = informacion;
+    this.noEs = noEs;
+  }
+}
